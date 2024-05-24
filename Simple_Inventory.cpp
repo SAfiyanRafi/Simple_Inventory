@@ -128,7 +128,7 @@ void Existing_Stock_Change()
          for (size_t i = 0; i < product.size(); i++)
         {
             cout<< setw(10) << left << i + 1 << setw(20) << left << product[i].item_Name
-            << setw(15) << left << product[i].item_Quantity << "$ "<< product[i].item_Price<<endl;
+            << setw(15) << left << product[i].item_Quantity << fixed << setprecision(2)  << "$ "<< product[i].item_Price<<endl;
         }
     int stockitem;
     cout<<endl;
@@ -226,7 +226,7 @@ void supplier_Menu()
         {
             cout<< setw(10) << left << i +1 << setw(20) << left << product[i].item_Name
                 << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
-                <<"$ "<< product[i].item_Price<<endl;
+                 << fixed << setprecision(2) <<"$ "<< product[i].item_Price<<endl;
         }
     int choice;
     cout<<" 1) BUY PRODUCT : "<<endl;
@@ -274,7 +274,7 @@ void Display_Stock()
         {
             cout<< setw(10) << left << i +1 << setw(20) << left << product[i].item_Name
                 << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
-                <<"$ "<< product[i].item_Price<<endl;
+                 << fixed << setprecision(2) <<"$ "<< product[i].item_Price<<endl;
         }
     cout<<endl;
     cout<<endl;
@@ -316,7 +316,7 @@ void Display_Categories()
         {
             cout << setw(10) << left << count << setw(20) << left << product[i].item_Name
                  << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity
-                 << "$ " << product[i].item_Price << endl;
+                 << fixed << setprecision(2) << "$ " << product[i].item_Price << endl;
             count++;
         }
     }
@@ -340,7 +340,7 @@ void Display_Categories()
         {
              cout << setw(10) << left << count << setw(20) << left << product[i].item_Name
                  << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity
-                 << "$ " << product[i].item_Price << endl;
+                 << fixed << setprecision(2)  << "$ " << product[i].item_Price << endl;
             count++;
         }
     }
@@ -364,7 +364,7 @@ void Display_Categories()
         {
              cout << setw(10) << left << count << setw(20) << left << product[i].item_Name
                  << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity
-                 << "$ " << product[i].item_Price << endl;
+                 << fixed << setprecision(2)  << "$ " << product[i].item_Price << endl;
             count++;
         }
     }
