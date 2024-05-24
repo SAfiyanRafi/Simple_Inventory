@@ -1,7 +1,7 @@
-#include<iostream>
-#include<vector>
-#include<iomanip>
-#include<map>
+#include <iostream>
+#include <vector>
+#include <iomanip>
+#include <algorithm>
 using namespace std;
 struct stock
 {
@@ -18,6 +18,13 @@ class inventory
     //-------------------------
     string Admin_Username_Saved = "s"; 
     string Admin_Password_Saved = "s";
+
+    //-------------------------
+    // SUPPLIER LOGIN DETAILS
+    //-------------------------
+    vector <string> Supplier_Username_Saved;
+    vector <string> Supplier_Password_Saved;
+
     //-------------------------
     //         ITEMS
     //-------------------------
@@ -26,6 +33,7 @@ vector <stock> product = {{"Beans","Vegetable",50,12.76},{"Bananas","Fruit",100,
                           ,{"Tomato","Vegetable",30,14},{"Strawberry","Fruit",85,17.9}
                           ,{"Shampoo","Cosmetics",90,25.1},{"Lotion","Cosmetics",30,14},
                           {"Hair Oil","Cosmetics",85,17.9}};
+
     public:
     //-------------------------
     //      ADMIN LOGIN
@@ -214,15 +222,16 @@ void Add_New_Stock()
 //-------------------------
 //     SUPPLIER MENU
 //-------------------------
-void supplier_Menu()
+void Supplier_Registration()
 {
-    cout << "\t\t================"<<endl;
-    cout << "\t\t SUPPPLIER MENU"<<endl;
-    cout << "\t\t================\n"<<endl<<endl;
+    system("cls");
+    cout << "\t\t========================"<<endl;
+    cout << "\t\t SUPPPLIER REGISTRATION"<<endl;
+    cout << "\t\t========================\n"<<endl<<endl;
     int choice;
     cout << " 1) SIGN UP  "<<endl;
     cout << " 2) LOGIN "<<endl;
-    cout << " 3) EXIT "<<endl;
+    cout << " 3) EXIT \n"<<endl;
     cout << "ENTER YOUR CHOICE : ";
     cin >> choice ;
     switch (choice)
@@ -240,19 +249,87 @@ void supplier_Menu()
     system("cls");
     cout << "INVALID CHOICE !! \n\n";
     system("pause");
-    supplier_Menu();
+    Supplier_Registration();
     break;
     }
-
 }
 void supplier_Signup()
 {
-
+    system("cls");
+    string Supplier_Username;
+    string Supplier_Password;
+    cout << "\t\t================================" << endl;
+    cout << "\t\tWELCOME TO INVENTORY SIGNUP HERE" << endl;
+    cout << "\t\t================================\n\n" << endl;
+    cin.ignore();
+    cout << "CHOOSE YOURSELF A USERNAME : ";
+    getline(cin, Supplier_Username);
+    cout << "CHOOSE YOURSELF A PASSWORD : ";
+    cin >> Supplier_Password;
+    if (find(Supplier_Username_Saved.begin(), Supplier_Username_Saved.end(), Supplier_Username) != Supplier_Username_Saved.end()) 
+    {
+        cout << "USERNAME ALREADY EXISTS!\nPlease try again with a different username." << endl;
+        system("pause");
+        supplier_Signup();
+    } 
+    else 
+    {
+        system("cls");
+        Supplier_Username_Saved.push_back(Supplier_Username);
+        Supplier_Password_Saved.push_back(Supplier_Password);
+        cout << "\n\nSIGNUP SUCCESSFUL ! \n\n" << endl;
+        system("pause");
+        Supplier_Registration();
+    }
 }
  void supplier_Authorization()
  {
+    system("cls");
+    string Supplier_Username;
+    string Supplier_Password;
+    cout << "\t\t================= " << endl;
+    cout << "\t\t SUPPLIER LOGIN " << endl;
+    cout << "\t\t================= " << endl;
+    cin.ignore();
+    cout << "ENTER YOUR LOGIN USERNAME : ";
+    getline(cin,Supplier_Username);
+    cout << "ENTER YOUR LOGIN PASSPORT : ";
+    cin >> Supplier_Password; 
+    if (find(Supplier_Username_Saved.begin(), Supplier_Username_Saved.end(), Supplier_Username) != Supplier_Username_Saved.end())
+    {
+        system("cls");
+        cout << " LOGIN DONE \n" <<endl<<endl;
+        system("pause");
+        Supplier_Menu();
+    }
+    else 
+    {
+        int choice;
+        system("cls");
+        cout << "\n\nTHE USERNAME OR PASSPORT YOU ENTERED IS WRONG !! "<<endl;
+        cout << " 1) TRY AGAIN "<<endl;
+        cout << " 2) EXIT "<<endl;
+        cout << " ENTER YOUR CHOICE : ";
+        cin >> choice;
+        if(choice == 1)
+        {
+           supplier_Authorization();
+        }
+        else
+        {
+           exit(0);
+        }
+    }
 
- }
+    }
+void Supplier_Menu()
+{
+system("cls");
+cout << "\t\t===================" << endl;
+cout << "\t\t SUPPLIER MENU" << endl;
+cout << "\t\t===================" << endl;
+
+}
 void purchase_Products()
 {
 
@@ -407,7 +484,7 @@ void execute()
         Admin_Authorization();
         break;
         case 2:
-        supplier_Authorization();
+        Supplier_Registration();
         break;
         case 3:
         exit(0);
