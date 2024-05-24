@@ -116,8 +116,10 @@ void Admin_Menu()
         execute();
         break;
     }
-
 }
+//-------------------------
+//   STOCK MANIPULATION
+//-------------------------
 void Existing_Stock_Change()
 {
     system("cls");
@@ -214,52 +216,54 @@ void Add_New_Stock()
 //-------------------------
 void supplier_Menu()
 {
-    system("cls");
-     cout << "\t\t======================" << endl;
-    cout << "\t\t WARHOUSE STOCK ITEMS" << endl;
-    cout << "\t\t======================\n\n" << endl;
-      cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
-        << setw(15) << left <<"Category" << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
-        cout<<endl;
-        cout<<endl;
-          for (size_t i = 0; i < product.size(); i++)
-        {
-            cout<< setw(10) << left << i +1 << setw(20) << left << product[i].item_Name
-                << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
-                 << fixed << setprecision(2) <<"$ "<< product[i].item_Price<<endl;
-        }
+    cout << "\t\t================"<<endl;
+    cout << "\t\t SUPPPLIER MENU"<<endl;
+    cout << "\t\t================\n"<<endl<<endl;
     int choice;
-    cout<<" 1) BUY PRODUCT : "<<endl;
-    cout<<" 2) SELL PRODUCT : "<<endl;
-    cout<<" 3) VIEW PRODUCTS BOUGHT : "<<endl;
-    cout<<" 4) LOGOUT : "<<endl;
-    cout<<"ENTER A CHOICE : ";
-    cin >> choice;
-    switch(choice)
+    cout << " 1) SIGN UP  "<<endl;
+    cout << " 2) LOGIN "<<endl;
+    cout << " 3) EXIT "<<endl;
+    cout << "ENTER YOUR CHOICE : ";
+    cin >> choice ;
+    switch (choice)
     {
-        case 1:
-        Display_Stock();
-        break;
-        case 2:
-        Display_Categories();
-        break;
-        case 3:
-        purchase_Products();
-        break;
-        case 4:
-        execute();
-        break;
-        default:
-        cout << "Invalid Choice !! " << endl;
-        cout << endl;
-        system("pause");
-        supplier_Menu();
+    case 1:
+    supplier_Signup();
+    break;
+    case 2:
+    supplier_Authorization();
+    break;
+    case 3:
+    exit(0);
+    break;
+    default:
+    system("cls");
+    cout << "INVALID CHOICE !! \n\n";
+    system("pause");
+    supplier_Menu();
+    break;
     }
+
 }
+void supplier_Signup()
+{
+
+}
+ void supplier_Authorization()
+ {
+
+ }
 void purchase_Products()
 {
 
 }
+void sell_Products()
+{
+
+}
+//---------------------------
+//     DISPLAY ITEMS 
+//---------------------------
 void Display_Stock()
 {
     system("cls");
@@ -403,7 +407,7 @@ void execute()
         Admin_Authorization();
         break;
         case 2:
-        supplier_Menu();
+        supplier_Authorization();
         break;
         case 3:
         exit(0);
