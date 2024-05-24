@@ -294,7 +294,7 @@ void Display_Categories()
     {
         case 1:
         cout << "\t\t\t=============" << endl;
-        cout << "\t\t\t  FRUITS" << endl;
+        cout << "\t\t\t   FRUITS" << endl;
         cout << "\t\t\t=============\n\n" << endl;
            cout << setw(10) << left << "No" << setw(20) << left << "Item Name "
          << setw(15) << left << "Category" << setw(15) << left << "Quantity" << setw(10) << left << "Price";
@@ -318,7 +318,7 @@ void Display_Categories()
         break;
         case 2:
         cout << "\t\t\t=============" << endl;
-        cout << "\t\t\t VEGETABLES" << endl;
+        cout << "\t\t\t  VEGETABLES" << endl;
         cout << "\t\t\t=============\n\n" << endl;
         cout << setw(10) << left << "No" << setw(20) << left << "Item Name "
          << setw(15) << left << "Category" << setw(15) << left << "Quantity" << setw(10) << left << "Price";
