@@ -215,11 +215,24 @@ void Add_New_Stock()
 void supplier_Menu()
 {
     system("cls");
+     cout << "\t\t======================" << endl;
+    cout << "\t\t WARHOUSE STOCK ITEMS" << endl;
+    cout << "\t\t======================\n\n" << endl;
+      cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
+        << setw(15) << left <<"Category" << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
+        cout<<endl;
+        cout<<endl;
+          for (size_t i = 0; i < product.size(); i++)
+        {
+            cout<< setw(10) << left << i +1 << setw(20) << left << product[i].item_Name
+                << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
+                <<"$ "<< product[i].item_Price<<endl;
+        }
     int choice;
-    cout<<" 1) VIEW COMPLETE STOCK : "<<endl;
-    cout<<" 2) VIEW CATEGORIZED STOCK : "<<endl;
-    cout<<" 3) BUY PRODUCTS : "<<endl;
-    cout<<" 4) EXIT : "<<endl;
+    cout<<" 1) BUY PRODUCT : "<<endl;
+    cout<<" 2) SELL PRODUCT : "<<endl;
+    cout<<" 3) VIEW PRODUCTS BOUGHT : "<<endl;
+    cout<<" 4) LOGOUT : "<<endl;
     cout<<"ENTER A CHOICE : ";
     cin >> choice;
     switch(choice)
@@ -234,7 +247,7 @@ void supplier_Menu()
         purchase_Products();
         break;
         case 4:
-        exit(0);
+        execute();
         break;
         default:
         cout << "Invalid Choice !! " << endl;
