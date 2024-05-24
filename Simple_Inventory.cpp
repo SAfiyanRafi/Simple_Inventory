@@ -222,7 +222,7 @@ void Add_New_Stock()
 //-------------------------
 //     SUPPLIER MENU
 //-------------------------
-void Supplier_Registration()
+void Supplier_Menu()
 {
     system("cls");
     cout << "\t\t========================"<<endl;
@@ -243,13 +243,13 @@ void Supplier_Registration()
     supplier_Authorization();
     break;
     case 3:
-    exit(0);
+    execute();
     break;
     default:
     system("cls");
     cout << "INVALID CHOICE !! \n\n";
     system("pause");
-    Supplier_Registration();
+    Supplier_Menu();
     break;
     }
 }
@@ -279,10 +279,10 @@ void supplier_Signup()
         Supplier_Password_Saved.push_back(Supplier_Password);
         cout << "\n\nSIGNUP SUCCESSFUL ! \n\n" << endl;
         system("pause");
-        Supplier_Registration();
+        Supplier_Menu();
     }
 }
- void supplier_Authorization()
+void supplier_Authorization()
  {
     system("cls");
     string Supplier_Username;
@@ -298,9 +298,9 @@ void supplier_Signup()
     if (find(Supplier_Username_Saved.begin(), Supplier_Username_Saved.end(), Supplier_Username) != Supplier_Username_Saved.end())
     {
         system("cls");
-        cout << " LOGIN DONE \n" <<endl<<endl;
+        cout << " \n\nLOGIN DONE !! \n" <<endl<<endl;
         system("pause");
-        Supplier_Menu();
+        Supplier_Purchasing();
     }
     else 
     {
@@ -320,17 +320,48 @@ void supplier_Signup()
            exit(0);
         }
     }
-
     }
-void Supplier_Menu()
+void Supplier_Purchasing()
 {
 system("cls");
-cout << "\t\t===================" << endl;
-cout << "\t\t SUPPLIER MENU" << endl;
-cout << "\t\t===================" << endl;
-
+     cout << "\t\t======================" << endl;
+    cout << "\t\t   BUYING INTERFACE" << endl;
+    cout << "\t\t======================\n\n" << endl;
+      cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
+        << setw(15) << left <<"Category" << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
+        cout<<endl;
+        cout<<endl;
+          for (size_t i = 0; i < product.size(); i++)
+        {
+            cout<< setw(10) << left << i +1 << setw(20) << left << product[i].item_Name
+                << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
+                 << fixed << setprecision(2) <<"$ "<< product[i].item_Price<<endl;
+        }
+    int choice;
+    cout<<"\n\n 1) BUY PRODUCTs : "<<endl;
+    cout<<" 2) VIEW PRODUCTS BOUGHT : "<<endl;
+    cout<<" 3) LOGOUT : "<<endl;
+    cout<<"\nENTER A CHOICE : ";
+    cin >> choice;
+    switch(choice)
+    {
+        case 1:
+         Supplier_Purchased_Products();
+        break;
+        case 2:
+        Display_Categories();
+        break;
+        case 3:
+        execute();
+        break;
+        default:
+        cout << "Invalid Choice !! " << endl;
+        cout << endl;
+        system("pause");
+        Supplier_Menu();
+    }
 }
-void purchase_Products()
+void Supplier_Purchased_Products()
 {
 
 }
@@ -472,7 +503,7 @@ void execute()
     int choice;
     cout << "\t\t===========================" << endl;
     cout << "\t\t WELCOME TO THE INVENTORY" << endl;
-    cout << "\t\t===========================" << endl;
+    cout << "\t\t===========================\n\n" << endl;
     cout<<" 1) ADMIN : "<<endl;
     cout<<" 2) SUPPLIER : "<<endl;
     cout<<" 3) EXIT : "<<endl<<endl;
@@ -484,7 +515,7 @@ void execute()
         Admin_Authorization();
         break;
         case 2:
-        Supplier_Registration();
+        Supplier_Menu();
         break;
         case 3:
         exit(0);
