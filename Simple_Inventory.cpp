@@ -208,7 +208,37 @@ void Add_New_Stock()
 //-------------------------
 void supplier_Menu()
 {
-
+    system("cls");
+    int choice;
+    cout<<"ENTER A CHOICE : "<<endl;
+    cout<<" 1) VIEW COMPLETE STOCK : "<<endl;
+    cout<<" 2) VIEW CATEGORIZED STOCK : "<<endl;
+    cout<<" 3) BUY PRODUCTS : "<<endl;
+    cout<<" 4) EXIT : "<<endl;
+    switch(choice)
+    {
+        case 1:
+        Display_Stock();
+        break;
+        case 2:
+        Display_Categories();
+        break;
+        case 3:
+        purchase_Products();
+        break;
+        case 4:
+        exit(0);
+        break;
+        default:
+        cout << "Invalid Choice !! " << endl;
+        cout << endl;
+        system("pause");
+        supplier_Menu(); 
+    }
+}
+void purchase_Products()
+{
+    
 }
 void Display_Stock()
 {
