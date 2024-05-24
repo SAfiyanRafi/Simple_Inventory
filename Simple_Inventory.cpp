@@ -21,7 +21,7 @@ class inventory
     //-------------------------
     //         ITEMS
     //-------------------------
-vector <stock> product = {{"Beans","Groceries",10,12.76},{"Bananas","Fruit",20,15.3}};
+vector <stock> product = {{"Beans","Vegetable",10,12.76},{"Bananas","Fruit",20,15.3}};
     //-------------------------
     //    Usning Mapping
     //-------------------------
@@ -100,7 +100,7 @@ void Admin_Menu()
         Add_New_Stock();
         break;
         case 4:
-        Display_Categorized_Items();
+        Display_Categories();
         break;
         case 5:
         exit(0);
@@ -233,51 +233,95 @@ void Display_Stock()
     system("pause");
     Admin_Menu();
 }
-
 //---------------------------
 // DISPLAY CATOGORIED ITEMS 
 //---------------------------
-  void Display_Categorized_Items()
+void Display_Categories()
+{
+    system("cls");
+    cout << "\t\t====================" << endl;
+    cout<<  "\t\t     CATEGORIES"<<endl;
+    cout << "\t\t====================" << endl;
+    int choice;
+    cout<<"ENTER A CHOICE : "<<endl;
+    cout<<" 1) FRUITS : "<<endl;
+    cout<<" 2) VEGETABLES : "<<endl;
+    cout<<" 3) COSMETICS : "<<endl;
+    cout<<" 4) EXIT : "<<endl;
+
+    cin >> choice;
+    int count = 1;
+    switch(choice)
     {
-        system("cls");
-        cout << "\t\t\t======================" << endl;
-        cout << "\t\t\t CATEGORIZED STOCK ITEMS" << endl;
-        cout << "\t\t\t======================" << endl;
-        cout<<endl;
-        cout<<endl;   
-        cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
-            << setw(15) << left <<"Category" << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
-        cout<<endl;
-        cout<<endl;
-        // for (size_t i = 0; i < product.size(); i++)
-        // {
-        //     cout<< setw(10) << left << i +1  << setw(20) << left << product[i].item_Name
-        //         << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
-        //         <<"$"<< product[i].item_Price<<endl;
-        // }
-        
-        for ( auto categoryItems : categorized_Items)
+        case 1:
+           cout << setw(10) << left << "No" << setw(20) << left << "Item Name "
+         << setw(15) << left << "Category" << setw(15) << left << "Quantity" << setw(10) << left << "Price";
+    cout << endl;
+    cout << endl;
+    for (size_t i = 0; i < product.size(); i++)
+    {
+        if (product[i].item_category == "Fruit")
         {
-            cout << "Category: " << categoryItems.first << endl;
-            cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
-                << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
-            cout<<endl;
-            cout<<endl;
-            int count = 1;
-            for ( auto item : categoryItems.second)
-            {
-                cout << setw(10) << left << count << setw(20) << left << item.item_Name
-                    << setw(15) << left << item.item_Quantity << "$" << item.item_Price << endl;
-                count++;
-            }
-            cout << endl;
+            cout << setw(10) << left << count << setw(20) << left << product[i].item_Name
+                 << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity
+                 << "$" << product[i].item_Price << endl;
+            count++;
         }
-            cout << endl;
-            cout << endl;
-    
+    }
+        cout << endl;
+        cout << endl;
+        system("pause");
+        Admin_Menu();
+        break;
+        case 2:
+        cout << setw(10) << left << "No" << setw(20) << left << "Item Name "
+         << setw(15) << left << "Category" << setw(15) << left << "Quantity" << setw(10) << left << "Price";
+    cout << endl;
+    cout << endl;
+    for (size_t i = 0; i < product.size(); i++)
+    {
+        if (product[i].item_category == "Vegetable")
+        {
+             cout << setw(10) << left << count << setw(20) << left << product[i].item_Name
+                 << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity
+                 << "$" << product[i].item_Price << endl;
+            count++;
+        }
+    }
+        cout << endl;
+        cout << endl;
+        system("pause");
+        Admin_Menu();
+        break;
+        case 3:
+        cout << setw(10) << left << "No" << setw(20) << left << "Item Name "
+         << setw(15) << left << "Category" << setw(15) << left << "Quantity" << setw(10) << left << "Price";
+    cout << endl;
+    cout << endl;
+    for (size_t i = 0; i < product.size(); i++)
+    {
+        if (product[i].item_category == "Cosmetic")
+        {
+             cout << setw(10) << left << count << setw(20) << left << product[i].item_Name
+                 << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity
+                 << "$" << product[i].item_Price << endl;
+            count++;
+        }
+    }
+        cout << endl;
+        cout << endl;
+        system("pause");
+        Admin_Menu();
+        break;
+        case 4:
+        exit(0);
+        break;
+        default:
+        cout << "INVALID CHOICE !! "<<endl;
         system("pause");
         Admin_Menu();
     }
+}
 //---------------------------
 // Program Execute FUNCTION
 //---------------------------
