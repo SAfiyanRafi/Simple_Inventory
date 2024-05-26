@@ -226,7 +226,7 @@ void Supplier_Menu()
 {
     system("cls");
     cout << "\t\t========================"<<endl;
-    cout << "\t\t SUPPPLIER REGISTRATION"<<endl;
+    cout << "\t\t    SUPPLIER MENU "<<endl;
     cout << "\t\t========================\n"<<endl<<endl;
     int choice;
     cout << " 1) SIGN UP  "<<endl;
@@ -258,9 +258,9 @@ void supplier_Signup()
     system("cls");
     string Supplier_Username;
     string Supplier_Password;
-    cout << "\t\t================================" << endl;
-    cout << "\t\tWELCOME TO INVENTORY SIGNUP HERE" << endl;
-    cout << "\t\t================================\n\n" << endl;
+    cout << "\t================================" << endl;
+    cout << "\tWELCOME TO INVENTORY SIGNUP HERE" << endl;
+    cout << "\t================================\n\n" << endl;
     cin.ignore();
     cout << "CHOOSE YOURSELF A USERNAME : ";
     getline(cin, Supplier_Username);
@@ -287,9 +287,9 @@ void supplier_Authorization()
     system("cls");
     string Supplier_Username;
     string Supplier_Password;
-    cout << "\t\t================= " << endl;
-    cout << "\t\t SUPPLIER LOGIN " << endl;
-    cout << "\t\t================= " << endl;
+    cout << "\t================= " << endl;
+    cout << "\t SUPPLIER LOGIN " << endl;
+    cout << "\t=================\n\n " << endl;
     cin.ignore();
     cout << "ENTER YOUR LOGIN USERNAME : ";
     getline(cin,Supplier_Username);
@@ -306,7 +306,7 @@ void supplier_Authorization()
     {
         int choice;
         system("cls");
-        cout << "\n\nTHE USERNAME OR PASSPORT YOU ENTERED IS WRONG !! "<<endl;
+        cout << "\n\nTHE USERNAME OR PASSPORT YOU ENTERED IS WRONG \n\n!! "<<endl;
         cout << " 1) TRY AGAIN "<<endl;
         cout << " 2) EXIT "<<endl;
         cout << " ENTER YOUR CHOICE : ";
@@ -365,19 +365,15 @@ void Supplier_Purchased_Products()
 {
 
 }
-void sell_Products()
-{
-
-}
 //---------------------------
 //     DISPLAY ITEMS 
 //---------------------------
 void Display_Stock()
 {
     system("cls");
-    cout << "\t\t======================" << endl;
-    cout << "\t\t WARHOUSE STOCK ITEMS" << endl;
-    cout << "\t\t======================\n\n" << endl;
+    cout << "\t======================" << endl;
+    cout << "\t WARHOUSE STOCK ITEMS" << endl;
+    cout << "\t======================\n\n" << endl;
       cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
         << setw(15) << left <<"Category" << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
         cout<<endl;
@@ -399,9 +395,9 @@ void Display_Stock()
 void Display_Categories()
 {
     system("cls");
-    cout << "\t\t====================" << endl;
-    cout<<  "\t\t     CATEGORIES"<<endl;
-    cout << "\t\t====================\n\n" << endl;
+    cout << "\t====================" << endl;
+    cout<<  "\t     CATEGORIES"<<endl;
+    cout << "\t====================\n\n" << endl;
     int choice;
     cout<<" 1) FRUITS : "<<endl;
     cout<<" 2) VEGETABLES : "<<endl;
@@ -414,9 +410,9 @@ void Display_Categories()
     switch(choice)
     {
         case 1:
-        cout << "\t\t\t=============" << endl;
-        cout << "\t\t\t   FRUITS" << endl;
-        cout << "\t\t\t=============\n\n" << endl;
+        cout << "\t\t=============" << endl;
+        cout << "\t\t   FRUITS" << endl;
+        cout << "\t\t=============\n\n" << endl;
            cout << setw(10) << left << "No" << setw(20) << left << "Item Name "
          << setw(15) << left << "Category" << setw(15) << left << "Quantity" << setw(10) << left << "Price";
     cout << endl;
@@ -438,9 +434,9 @@ void Display_Categories()
         Display_Categories();
         break;
         case 2:
-        cout << "\t\t\t=============" << endl;
-        cout << "\t\t\t  VEGETABLES" << endl;
-        cout << "\t\t\t=============\n\n" << endl;
+        cout << "\t\t=============" << endl;
+        cout << "\t\t  VEGETABLES" << endl;
+        cout << "\t\t=============\n\n" << endl;
         cout << setw(10) << left << "No" << setw(20) << left << "Item Name "
          << setw(15) << left << "Category" << setw(15) << left << "Quantity" << setw(10) << left << "Price";
     cout << endl;
@@ -462,9 +458,9 @@ void Display_Categories()
         Display_Categories();
         break;
         case 3:
-        cout << "\t\t\t=============" << endl;
-        cout << "\t\t\t  COSMETICS" << endl;
-        cout << "\t\t\t=============\n\n" << endl;
+        cout << "\t\t=============" << endl;
+        cout << "\t\t  COSMETICS" << endl;
+        cout << "\t\t=============\n\n" << endl;
         cout << setw(10) << left << "No" << setw(20) << left << "Item Name "
          << setw(15) << left << "Category" << setw(15) << left << "Quantity" << setw(10) << left << "Price";
     cout << endl;
@@ -501,9 +497,9 @@ void execute()
 {
     system("cls");
     int choice;
-    cout << "\t\t===========================" << endl;
-    cout << "\t\t WELCOME TO THE INVENTORY" << endl;
-    cout << "\t\t===========================\n\n" << endl;
+    cout << "\t===========================" << endl;
+    cout << "\t WELCOME TO THE INVENTORY" << endl;
+    cout << "\t===========================\n\n" << endl;
     cout<<" 1) ADMIN : "<<endl;
     cout<<" 2) SUPPLIER : "<<endl;
     cout<<" 3) EXIT : "<<endl<<endl;
