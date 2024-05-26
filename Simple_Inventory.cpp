@@ -339,7 +339,7 @@ system("cls");
         }
     int choice;
     cout<<"\n\n 1) BUY PRODUCTs : "<<endl;
-    cout<<" 2) VIEW PRODUCTS BOUGHT : "<<endl;
+    cout<<" 2) VIEW BOUGHT PRODUCTS : "<<endl;
     cout<<" 3) LOGOUT : "<<endl;
     cout<<"\nENTER A CHOICE : ";
     cin >> choice;
