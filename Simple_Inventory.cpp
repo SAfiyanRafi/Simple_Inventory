@@ -15,7 +15,7 @@ struct supplier_products
 {
     string Supplier_item_Name;
     int Supplier_item_Quantity;
-    int Supplier_item_Price;
+    double Supplier_item_Price;
 };
 
 class inventory
@@ -403,14 +403,15 @@ void Supplier_Purchasing_Products() {
     cout << "PRESS E/e TO RETURN TO TH STOCK INTERFACE \n\n" << endl;
     cout << "ENTER YOUR CHOICE : ";
     cin >> choice;
+    int Num_To_Buy;
+    int itemNumber;
+    int index;
 
-    switch (choice) {
+    switch (choice) 
+    {
         case '1':
-        case '2': 
-        {
-            char Num_To_Buy = (choice == '1') ? 10 : 5;
+            Num_To_Buy = 10;
             cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
-            int itemNumber;
             cin >> itemNumber;
             if (itemNumber < 1 || itemNumber > product.size()) 
             {
@@ -419,13 +420,41 @@ void Supplier_Purchasing_Products() {
                 Supplier_Purchasing_Products();
                 return;
             }
-            int index = itemNumber - 1;
+                index = itemNumber - 1;
             if (product[index].item_Quantity >= Num_To_Buy)
             {
                 supplier_products supplier_item;
                 supplier_item.Supplier_item_Name = product[index].item_Name;
-                supplier_item.Supplier_item_Quantity = product[index].item_Quantity;
+                supplier_item.Supplier_item_Quantity = Num_To_Buy;
                 supplier_item.Supplier_item_Price = product[index].item_Price;
+                items.push_back(supplier_item);
+                product[index].item_Quantity -= Num_To_Buy;
+                cout << "\n\nPURCHASE SUCCESFUL \n!! " << endl;
+            } 
+            else 
+            {
+                cout << "\n\nNOT ENOUGH QUANTITY AVAILABLE\n !! " << endl;
+            }
+            break;
+        case '2': 
+        {
+            Num_To_Buy = 5;
+            cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
+            cin >> itemNumber;
+            if (itemNumber < 1 || itemNumber > product.size()) 
+            {
+                cout << "INVALID ITEM NUMBER !! \n\n" << endl;
+                system("pause");
+                Supplier_Purchasing_Products();
+                return;
+            }
+                index = itemNumber - 1;
+            if (product[index].item_Quantity >= Num_To_Buy)
+            {
+                supplier_products supplier_item;
+                supplier_item.Supplier_item_Name = product[index].item_Name;
+                supplier_item.Supplier_item_Quantity = Num_To_Buy;
+                supplier_item.Supplier_item_Price = product[index].item_Price/2;
                 items.push_back(supplier_item);
                 product[index].item_Quantity -= Num_To_Buy;
                 cout << "\n\nPURCHASE SUCCESFUL \n!! " << endl;
@@ -437,9 +466,11 @@ void Supplier_Purchasing_Products() {
             break;
         }
         case 'E':
+        Supplier_Choice();
+        break;
         case 'e':
-            Supplier_Choice();
-            break;
+        Supplier_Choice();
+        break;
         default:
             cout << "Invalid choice!" << endl;
     }
@@ -465,6 +496,24 @@ void Supplier_Item_Storage()
                  << setw(15) << left << items[i].Supplier_item_Quantity 
                  << fixed << setprecision(2) <<"$ "<< items[i].Supplier_item_Price<<endl;
         }
+        int Total_Quantity = 0;
+        double Total_Price = 0;
+        for (size_t i = 0; i < items.size(); i++)
+        {
+            Total_Quantity += items[i].Supplier_item_Quantity;
+        }
+        for (size_t i = 0; i < items.size(); i++)
+        {
+            Total_Price += items[i].Supplier_item_Price;
+        }
+        cout << endl;
+        cout << endl;
+        cout << "-----------------------------------------" << endl;  
+    cout<<"TOTAL QUANTITY OF ITEMS BOUGHT = " << Total_Quantity;
+    cout<<"\n\n TOTAL PRICE OF ITEMS BOUGHT = $ " << Total_Price <<endl;
+        cout << "-----------------------------------------" << endl;  
+        cout << endl;
+        cout << endl;
         
 }
 //---------------------------
