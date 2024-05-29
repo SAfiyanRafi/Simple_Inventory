@@ -11,13 +11,17 @@ struct stock
   int item_Quantity;
   double item_Price;
 };
+struct User_Data 
+{
+    string User_Name;
+    string User_Password;
+};
 struct supplier_products
 {
     string Supplier_item_Name;
     int Supplier_item_Quantity;
     double Supplier_item_Price;
 };
-
 class inventory
 {
     private:
@@ -324,7 +328,7 @@ void supplier_Authorization()
     {
         char choice;
         system("cls");
-        cout << "\n\nTHE USERNAME OR PASSPORT YOU ENTERED IS WRONG \n\n!! "<<endl;
+        cout << "\n\nTHE USERNAME OR PASSWORT YOU ENTERED IS WRONG \n\n!! "<<endl;
         cout << " 1) TRY AGAIN "<<endl;
         cout << " 2) EXIT "<<endl;
         cout << " ENTER YOUR CHOICE : ";
@@ -595,6 +599,8 @@ void execute()
     cout<<" 2) SUPPLIER : "<<endl;
     cout<<" 3) EXIT : "<<endl<<endl;
     cout<<"ENTER A CHOICE : ";
+    cin.ignore();
+   // cin.ignore();
     cin>>choice;
     switch(choice)
     {
@@ -619,7 +625,7 @@ void execute()
 //     MAIN FUNCTION
 //-------------------------
 int main()
-{
+{   int indexNumber;
     inventory s1;
     s1.execute();
 return 0;
