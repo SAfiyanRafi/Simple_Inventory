@@ -3,11 +3,8 @@
 #include <iomanip>
 #include <algorithm>
 #include <map>
-
-//-----------------------
-#include <string>  // For Switch Statement
+#include <string>
 #include <cctype>
-//-----------------------
 using namespace std;
 struct stock
 {
