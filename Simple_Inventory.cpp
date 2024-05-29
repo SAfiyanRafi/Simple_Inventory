@@ -3,6 +3,11 @@
 #include <iomanip>
 #include <algorithm>
 #include <map>
+
+//-----------------------
+#include <string>  // For Switch Statement
+#include <cctype>
+//-----------------------
 using namespace std;
 struct stock
 {
@@ -36,7 +41,7 @@ class inventory
     //-------------------------
     vector <string> Supplier_Username_Saved;
     vector <string> Supplier_Password_Saved;
-     
+
     //-------------------------
     //         ITEMS
     //-------------------------
@@ -83,6 +88,25 @@ vector <stock> product = {{"Beans","Vegetable",50,12.76},{"Bananas","Fruit",100,
             cout << " 1) Try Again : "<<endl;
             cout << " 2) Exit : ";
             char choice;
+            bool validInput = false;
+            string input;
+                 while (!validInput) 
+    {
+        cout << "Enter your choice: ";
+        cin >> input;
+        system("cls");
+
+        if (input.length() == 1 && isdigit(input[0])) {
+            choice = input[0];
+            validInput = true;
+        } else {
+            cout<<"Invalid input..."<<endl;
+            system("pause");
+            execute();
+            cin.clear();
+            cin.ignore(); 
+        }
+    }
             cin >> choice;
             switch (choice) 
             {
@@ -106,6 +130,8 @@ void Admin_Menu()
 {
     system("cls");
     char choice;
+    bool validInput = false;
+    string input;
     cout << "\t\t================" << endl;
     cout << "\t\t  WELCOME BACK" << endl;
     cout << "\t\t================\n\n" << endl;
@@ -114,7 +140,23 @@ void Admin_Menu()
     cout<<" 3) ADD A NEW STOCK : "<<endl;
     cout<<" 4) DISPLAY CATOGRIZED STOCKS : "<<endl;
     cout<<" 5) LOGOUT : \n"<<endl;
-    cout<<"ENTER A CHOICE : ";
+        while (!validInput) 
+    {
+        cout << "Enter your choice: ";
+        cin >> input;
+        system("cls");
+
+        if (input.length() == 1 && isdigit(input[0])) {
+            choice = input[0];
+            validInput = true;
+        } else {
+            cout<<"Invalid input..."<<endl;
+            system("pause");
+            execute();
+            cin.clear();
+            cin.ignore(); 
+        }
+    }
     cin>>choice;
     switch(choice)
     {
@@ -206,7 +248,7 @@ void Existing_Stock_Change()
         cout<<"NEW ITEM ADDED !! "<<endl;
         system("pause");
         Admin_Menu();
-         
+
 }
 void Add_New_Stock()
 {
@@ -241,14 +283,32 @@ void Add_New_Stock()
 void Supplier_Menu()
 {
     system("cls");
+    char choice;
+    bool validInput = false;
+    string input;
     cout << "\t\t========================"<<endl;
     cout << "\t\t    SUPPLIER MENU "<<endl;
     cout << "\t\t========================\n"<<endl<<endl;
-    char choice;
     cout << " 1) SIGN UP  "<<endl;
     cout << " 2) LOGIN "<<endl;
     cout << " 3) EXIT \n"<<endl;
-    cout << "ENTER YOUR CHOICE : ";
+        while (!validInput) 
+    {
+        cout << "Enter your choice: ";
+        cin >> input;
+        system("cls");
+
+        if (input.length() == 1 && isdigit(input[0])) {
+            choice = input[0];
+            validInput = true;
+        } else {
+            cout<<"Invalid input..."<<endl;
+            system("pause");
+            execute();
+            cin.clear();
+            cin.ignore(); 
+        }
+    }
     cin >> choice ;
     switch (choice)
     {
@@ -363,10 +423,28 @@ system("cls");
                  << fixed << setprecision(2) <<"$ "<< product[i].item_Price<<endl;
         }
     char choice;
+    bool validInput = false;
+    string input;
     cout<<"\n\n 1) BUY PRODUCTS : "<<endl;
     cout<<" 2) VIEW BOUGHT PRODUCTS : "<<endl;
     cout<<" 3) LOGOUT : "<<endl;
-    cout<<"\nENTER A CHOICE : ";
+        while (!validInput) 
+    {
+        cout << "Enter your choice: ";
+        cin >> input;
+        system("cls");
+
+        if (input.length() == 1 && isdigit(input[0])) {
+            choice = input[0];
+            validInput = true;
+        } else {
+            cout<<"Invalid input..."<<endl;
+            system("pause");
+            execute();
+            cin.clear();
+            cin.ignore(); 
+        }
+    }
     cin >> choice;
     switch(choice)
     {
@@ -518,7 +596,7 @@ void Supplier_Item_Storage()
         cout << "-----------------------------------------" << endl;  
         cout << endl;
         cout << endl;
-        
+
 }
 //---------------------------
 //     DISPLAY ITEMS 
@@ -590,18 +668,36 @@ void Display_Categories() {
 //---------------------------
 void execute()
 {
-    system("cls");
+    string input;
     char choice;
+    bool validInput = false;
+
+    system("cls");
     cout << "\t===========================" << endl;
     cout << "\t WELCOME TO THE INVENTORY" << endl;
     cout << "\t===========================\n\n" << endl;
     cout<<" 1) ADMIN : "<<endl;
     cout<<" 2) SUPPLIER : "<<endl;
     cout<<" 3) EXIT : "<<endl<<endl;
-    cout<<"ENTER A CHOICE : ";
-    cin.ignore();
-   // cin.ignore();
-    cin>>choice;
+
+    while (!validInput) 
+    {
+        cout << "Enter your choice: ";
+        cin >> input;
+        system("cls");
+
+        if (input.length() == 1 && isdigit(input[0])) {
+            choice = input[0];
+            validInput = true;
+        } else {
+            cout<<"Invalid input..."<<endl;
+            system("pause");
+            execute();
+            cin.clear();
+            cin.ignore(); 
+        }
+    }
+
     switch(choice)
     {
         case '1':
