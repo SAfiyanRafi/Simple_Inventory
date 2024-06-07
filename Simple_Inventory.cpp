@@ -34,8 +34,8 @@ class inventory
     //-------------------------
     // SUPPLIER LOGIN DETAILS
     //-------------------------
-    vector <string> Supplier_Username_Saved;
-    vector <string> Supplier_Password_Saved;
+    map<string, string> Supplier_Login_Details;
+    string current_supplier_username;
      
     //-------------------------
     //         ITEMS
@@ -48,8 +48,8 @@ vector <stock> product = {{"Beans","Vegetable",50,12.76},{"Bananas","Fruit",100,
     //-------------------------
     //    SUPPLIER ITEMS
     //-------------------------
-    vector <supplier_products> items;
-
+    map<string, vector<supplier_products>> Supplier_items;
+  
     public:
     //-------------------------
     //      ADMIN LOGIN
@@ -69,7 +69,6 @@ vector <stock> product = {{"Beans","Vegetable",50,12.76},{"Bananas","Fruit",100,
             Admin_password == Admin_Password_Saved) 
         {
             system("cls");
-
             cout << "\t\t\t==============" << endl ;
             cout << "\t\t\t  LOGIN DONE." << endl ;
             cout<< "\t\t\t=============="<<endl;
@@ -109,6 +108,9 @@ void Admin_Menu()
     cout << "\t\t================" << endl;
     cout << "\t\t  WELCOME BACK" << endl;
     cout << "\t\t================\n\n" << endl;
+    cout << "\t\t====================\n\n" << endl;
+    cout << "\t\tAVAILABLE SUPPLIERS:\n";
+    cout << "\t\t====================\n\n" << endl;
     cout<<" 1) VIEW STOCK : "<<endl;
     cout<<" 2) CHANGE AN EXISTING STOCK : "<<endl;
     cout<<" 3) ADD A NEW STOCK : "<<endl;
@@ -238,41 +240,44 @@ void Add_New_Stock()
 //-------------------------
 //     SUPPLIER MENU
 //-------------------------
-void Supplier_Menu()
+void Supplier_Menu() 
 {
     system("cls");
-    cout << "\t\t========================"<<endl;
-    cout << "\t\t    SUPPLIER MENU "<<endl;
-    cout << "\t\t========================\n"<<endl<<endl;
+    cout << "\t\t========================" << endl;
+    cout << "\t\t    SUPPLIER MENU " << endl;
+    cout << "\t\t========================\n\n" << endl;
+
     char choice;
-    cout << " 1) SIGN UP  "<<endl;
-    cout << " 2) LOGIN "<<endl;
-    cout << " 3) EXIT \n"<<endl;
-    cout << "ENTER YOUR CHOICE : ";
-    cin >> choice ;
-    switch (choice)
+    cout << "\n 1) SIGN UP" << endl;
+    cout << " 2) LOGIN" << endl;
+    cout << " 3) EXIT\n" << endl;
+    cout << "ENTER YOUR CHOICE: ";
+    cin >> choice;
+
+    switch (choice) 
     {
-    case '1':
-    supplier_Signup();
-    break;
-    case '2':
-    supplier_Authorization();
-    break;
-    case '3':
-    execute();
-    break;
-    default:
-    system("cls");
-    cout << "INVALID CHOICE !! \n\n";
-    system("pause");
-    Supplier_Menu();
-    break;
+        case '1':
+            supplier_Signup();
+            break;
+        case '2':
+            supplier_Authorization();
+            break;
+        case '3':
+            execute();
+            break;
+        default:
+            system("cls");
+            cout << "INVALID CHOICE!!\n\n";
+            system("pause");
+            Supplier_Menu();
+            break;
     }
 }
+
 //-------------------------
 //    SUPPLIER SIGNUP
 //-------------------------
-void supplier_Signup()
+void supplier_Signup() 
 {
     system("cls");
     string Supplier_Username;
@@ -285,27 +290,28 @@ void supplier_Signup()
     getline(cin, Supplier_Username);
     cout << "CHOOSE YOURSELF A PASSWORD : ";
     cin >> Supplier_Password;
-    if (find(Supplier_Username_Saved.begin(), Supplier_Username_Saved.end(), Supplier_Username) != Supplier_Username_Saved.end()) 
+    if (Supplier_Login_Details.find(Supplier_Username) != Supplier_Login_Details.end()) 
     {
         cout << "USERNAME ALREADY EXISTS!\nPlease try again with a different username." << endl;
         system("pause");
         supplier_Signup();
-    } 
-    else 
+    }
+     else 
     {
         system("cls");
-        Supplier_Username_Saved.push_back(Supplier_Username);
-        Supplier_Password_Saved.push_back(Supplier_Password);
+        Supplier_Login_Details[Supplier_Username] = Supplier_Password;
         cout << "\n\nSIGNUP SUCCESSFUL ! \n\n" << endl;
         system("pause");
         Supplier_Menu();
     }
 }
+
+
 //---------------------------
 //   SUPPLIER AUTHORIZATION
 //---------------------------
-void supplier_Authorization()
- {
+void supplier_Authorization() 
+{
     system("cls");
     string Supplier_Username;
     string Supplier_Password;
@@ -315,78 +321,85 @@ void supplier_Authorization()
     cin.ignore();
     cout << "ENTER YOUR LOGIN USERNAME : ";
     getline(cin,Supplier_Username);
-    cout << "ENTER YOUR LOGIN PASSPORT : ";
+    cout << "ENTER YOUR LOGIN PASSWORD : ";
     cin >> Supplier_Password; 
-    if (find(Supplier_Username_Saved.begin(), Supplier_Username_Saved.end(), Supplier_Username) != Supplier_Username_Saved.end())
+    auto it = Supplier_Login_Details.find(Supplier_Username);
+    if (it != Supplier_Login_Details.end() && it->second == Supplier_Password) 
     {
+        current_supplier_username = Supplier_Username;
         system("cls");
         cout << " \n\nLOGIN DONE !! \n" <<endl<<endl;
         system("pause");
         Supplier_Choice();
     }
-    else 
+     else 
     {
         char choice;
         system("cls");
-        cout << "\n\nTHE USERNAME OR PASSWORT YOU ENTERED IS WRONG \n\n!! "<<endl;
+        cout << "\n\nTHE USERNAME OR PASSWORD YOU ENTERED IS WRONG \n\n!! "<<endl;
         cout << " 1) TRY AGAIN "<<endl;
         cout << " 2) EXIT "<<endl;
         cout << " ENTER YOUR CHOICE : ";
         cin >> choice;
-        if(choice == '1')
-        {
-           supplier_Authorization();
-        }
-        else
-        {
-           exit(0);
+        if(choice == '1') {
+            supplier_Authorization();
+        } else {
+            exit(0);
         }
     }
-    }
+}
+
 //---------------------------
 //   SUPPLIER PURCHASING 
 //---------------------------
-void Supplier_Choice()
+void Supplier_Choice() 
 {
-system("cls");
-     cout << "\t\t======================" << endl;
-    cout << "\t\t    WARHOUSE STOCK " << endl;
+    system("cls");
+    cout << "\t\t======================" << endl;
+    cout << "\t\t    WAREHOUSE STOCK " << endl;
     cout << "\t\t======================\n\n" << endl;
-      cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
-        << setw(15) << left <<"Category" << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
-        cout<<endl;
-        cout<<endl;
-          for (size_t i = 0; i < product.size(); i++)
-        {
-            cout<< setw(10) << left << i +1 << setw(20) << left << product[i].item_Name
-                << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
-                 << fixed << setprecision(2) <<"$ "<< product[i].item_Price<<endl;
-        }
+    
+    cout << setw(10) << left << "No" << setw(20) << left << "Item Name " 
+         << setw(15) << left <<"Category" << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
+    cout << endl;
+    cout << endl;
+    for (size_t i = 0; i < product.size(); i++) {
+        cout << setw(10) << left << i +1 << setw(20) << left << product[i].item_Name
+             << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
+             << fixed << setprecision(2) <<"$ "<< product[i].item_Price << endl;
+    }
+
     char choice;
-    cout<<"\n\n 1) BUY PRODUCTS : "<<endl;
-    cout<<" 2) VIEW BOUGHT PRODUCTS : "<<endl;
-    cout<<" 3) LOGOUT : "<<endl;
-    cout<<"\nENTER A CHOICE : ";
+    cout << "\n\n 1) BUY PRODUCTS : "<<endl;
+    cout << " 2) VIEW BOUGHT PRODUCTS : "<<endl;
+    cout << " 3) LOGOUT : "<<endl;
+    cout << "\nENTER YOUR CHOICE : ";
     cin >> choice;
-    switch(choice)
+
+    switch(choice) 
     {
         case '1':
-        Supplier_Purchasing_Products();
-        break;
+            Supplier_Purchasing_Products();
+            break;
         case '2':
-        Supplier_Item_Storage();
-        break;
+            Supplier_Item_Storage();
+            break;
         case '3':
-        execute();
-        break;
+            execute();
+            break;
         default:
-        cout << "Invalid Choice !! " << endl;
-        cout << endl;
-        system("pause");
-        Supplier_Menu();
+            cout << "Invalid Choice !! " << endl;
+            cout << endl;
+            system("pause");
+            Supplier_Menu();
     }
 }
-void Supplier_Purchasing_Products() {
+
+//-------------------------
+// SUPPLIER PURCHASING 
+//-------------------------
+void Supplier_Purchasing_Products() 
+{
     system("cls");
     char choice;
     cout << "\t\t\t======================" << endl;
@@ -402,7 +415,7 @@ void Supplier_Purchasing_Products() {
                 << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
                  << fixed << setprecision(2) <<"$ "<< product[i].item_Price<<endl;
         }
-    cout << "\n\n\nPRESS 1 TO BUY 10 ITEMS " << endl;
+    cout << "\n\n\nPRESS 1 TO BUY 1 ITEMS " << endl;
     cout << "PRESS 2 TO BUY 5 ITEMS " << endl;
     cout << "PRESS E/e TO RETURN TO TH STOCK INTERFACE \n\n" << endl;
     cout << "ENTER YOUR CHOICE : ";
@@ -414,7 +427,7 @@ void Supplier_Purchasing_Products() {
     switch (choice) 
     {
         case '1':
-            Num_To_Buy = 10;
+            Num_To_Buy = 1;
             cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
             cin >> itemNumber;
             if (itemNumber < 1 || itemNumber > product.size()) 
@@ -424,16 +437,16 @@ void Supplier_Purchasing_Products() {
                 Supplier_Purchasing_Products();
                 return;
             }
-                index = itemNumber - 1;
+            index = itemNumber - 1;
             if (product[index].item_Quantity >= Num_To_Buy)
             {
                 supplier_products supplier_item;
                 supplier_item.Supplier_item_Name = product[index].item_Name;
                 supplier_item.Supplier_item_Quantity = Num_To_Buy;
                 supplier_item.Supplier_item_Price = product[index].item_Price;
-                items.push_back(supplier_item);
+                Supplier_items[current_supplier_username].push_back(supplier_item);
                 product[index].item_Quantity -= Num_To_Buy;
-                cout << "\n\nPURCHASE SUCCESFUL \n!! " << endl;
+                cout << "\n\nPURCHASE SUCCESSFUL \n!! " << endl;
             } 
             else 
             {
@@ -441,7 +454,6 @@ void Supplier_Purchasing_Products() {
             }
             break;
         case '2': 
-        {
             Num_To_Buy = 5;
             cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
             cin >> itemNumber;
@@ -452,36 +464,38 @@ void Supplier_Purchasing_Products() {
                 Supplier_Purchasing_Products();
                 return;
             }
-                index = itemNumber - 1;
+            index = itemNumber - 1;
             if (product[index].item_Quantity >= Num_To_Buy)
             {
                 supplier_products supplier_item;
                 supplier_item.Supplier_item_Name = product[index].item_Name;
                 supplier_item.Supplier_item_Quantity = Num_To_Buy;
-                supplier_item.Supplier_item_Price = product[index].item_Price/2;
-                items.push_back(supplier_item);
+                supplier_item.Supplier_item_Price = product[index].item_Price * 5;
+                Supplier_items[current_supplier_username].push_back(supplier_item);
                 product[index].item_Quantity -= Num_To_Buy;
-                cout << "\n\nPURCHASE SUCCESFUL \n!! " << endl;
+                cout << "\n\nPURCHASE SUCCESSFUL \n!! " << endl;
             } 
             else 
             {
                 cout << "\n\nNOT ENOUGH QUANTITY AVAILABLE\n !! " << endl;
             }
             break;
-        }
         case 'E':
-        Supplier_Choice();
-        break;
         case 'e':
-        Supplier_Choice();
-        break;
+            Supplier_Choice();
+            break;
         default:
             cout << "Invalid choice!" << endl;
     }
     system("pause");
     Supplier_Purchasing_Products();
 }
-void Supplier_Item_Storage()
+
+
+//-------------------------
+// SUPPLIER STORAGE
+//-------------------------
+void Supplier_Item_Storage() 
 {
     system("cls");
     cout<<"\t\t========================" << endl;
@@ -492,34 +506,28 @@ void Supplier_Item_Storage()
     cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
         << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
 
-        cout<<endl;
-        cout<<endl;
-        for (size_t i = 0; i < items.size() ; i++)
-        {
-      cout<< setw(10) << left << i +1 << setw(20) << left << items[i].Supplier_item_Name
-                 << setw(15) << left << items[i].Supplier_item_Quantity 
-                 << fixed << setprecision(2) <<"$ "<< items[i].Supplier_item_Price<<endl;
+    cout<<endl;
+    cout<<endl;
+
+    if (Supplier_items.find(current_supplier_username) != Supplier_items.end()) 
+    {
+        int count = 1;
+        for (auto& item : Supplier_items[current_supplier_username]) {
+            cout << setw(10) << left << count << setw(20) << left << item.Supplier_item_Name
+                 << setw(15) << left << item.Supplier_item_Quantity 
+                 << fixed << setprecision(2) <<"$ "<< item.Supplier_item_Price << endl;
+            count++;
         }
-        int Total_Quantity = 0;
-        double Total_Price = 0;
-        for (size_t i = 0; i < items.size(); i++)
-        {
-            Total_Quantity += items[i].Supplier_item_Quantity;
-        }
-        for (size_t i = 0; i < items.size(); i++)
-        {
-            Total_Price += items[i].Supplier_item_Price;
-        }
-        cout << endl;
-        cout << endl;
-        cout << "-----------------------------------------" << endl;  
-    cout<<"TOTAL QUANTITY OF ITEMS BOUGHT = " << Total_Quantity;
-    cout<<"\n\n TOTAL PRICE OF ITEMS BOUGHT = $ " << Total_Price <<endl;
-        cout << "-----------------------------------------" << endl;  
-        cout << endl;
-        cout << endl;
-        
+    } 
+    else 
+    {
+        cout << "NO ITEMS PURCHASED YET ." << endl << endl;
+    }
+
+    system("pause");
+    Supplier_Choice();
 }
+
 //---------------------------
 //     DISPLAY ITEMS 
 //---------------------------
@@ -547,7 +555,8 @@ void Display_Stock()
 //---------------------------
 // DISPLAY CATOGORIED ITEMS 
 //---------------------------
-void Display_Categories() {
+void Display_Categories() 
+{
         system("cls");
         cout << "\t\t====================" << endl;
         cout << "\t\t     CATEGORIES" << endl;
