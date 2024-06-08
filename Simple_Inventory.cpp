@@ -108,14 +108,12 @@ void Admin_Menu()
     cout << "\t\t================" << endl;
     cout << "\t\t  WELCOME BACK" << endl;
     cout << "\t\t================\n\n" << endl;
-    cout << "\t\t====================\n\n" << endl;
-    cout << "\t\tAVAILABLE SUPPLIERS:\n";
-    cout << "\t\t====================\n\n" << endl;
     cout<<" 1) VIEW STOCK : "<<endl;
     cout<<" 2) CHANGE AN EXISTING STOCK : "<<endl;
     cout<<" 3) ADD A NEW STOCK : "<<endl;
-    cout<<" 4) DISPLAY CATOGRIZED STOCKS : "<<endl;
-    cout<<" 5) LOGOUT : \n"<<endl;
+    cout<<" 4) DELETE A STOCK : "<<endl;
+    cout<<" 5) DISPLAY CATOGRIZED STOCKS : "<<endl;
+    cout<<" 6) LOGOUT : \n"<<endl;
     cout<<"ENTER A CHOICE : ";
     cin>>choice;
     switch(choice)
@@ -130,9 +128,12 @@ void Admin_Menu()
         Add_New_Stock();
         break;
         case '4':
-        Display_Categories();
+        Remove_Item_From_Inventory();
         break;
         case '5':
+        Display_Categories();
+        break;
+        case '6':
         execute();
         break;
         default:
@@ -237,6 +238,46 @@ void Add_New_Stock()
     system("pause");
     Admin_Menu();
 }
+//-------------------------
+//REMOVE ITEM FROM INVENTORY
+//-------------------------
+void Remove_Item_From_Inventory() 
+{
+    system("cls");
+    cout << "\t\t==========================" << endl;
+    cout << "\t\t REMOVE ITEM FROM INVENTORY" << endl;
+    cout << "\t\t==========================\n\n" << endl;
+
+          cout<< setw(10) << left << "No" << setw(20) << left << "Item Name " 
+        << setw(15) << left <<"Category" << setw(15) << left <<"Quantity"<< setw(10) << left << "Price";
+        cout<<endl;
+        cout<<endl;
+          for (size_t i = 0; i < product.size(); i++)
+        {
+            cout<< setw(10) << left << i +1 << setw(20) << left << product[i].item_Name
+                << setw(15) << left << product[i].item_category << setw(15) << left << product[i].item_Quantity 
+                 << fixed << setprecision(2) <<"$ "<< product[i].item_Price<<endl;
+        }
+
+    int itemNumber;
+    cout << "\n\nENTER THE NUMBER OF ITEM TO BE REMOVED : ";
+    cin >> itemNumber;
+
+    if (itemNumber < 1 || itemNumber > product.size()) {
+        cout << "INVALID ITEM NUMBER ! " << endl;
+        system("pause");
+        Admin_Menu();
+        return;
+    }
+
+    product.erase(product.begin() + itemNumber - 1);
+
+    cout << "ITEM REMOVED SUCESFULLY " << endl;
+
+    system("pause");
+    Admin_Menu();
+}
+
 //-------------------------
 //     SUPPLIER MENU
 //-------------------------
@@ -372,7 +413,8 @@ void Supplier_Choice()
     char choice;
     cout << "\n\n 1) BUY PRODUCTS : "<<endl;
     cout << " 2) VIEW BOUGHT PRODUCTS : "<<endl;
-    cout << " 3) LOGOUT : "<<endl;
+    cout << " 3) REMOVE ITEM FROM THE STORAGE : "<<endl;
+    cout << " 4) LOGOUT : "<<endl;
     cout << "\nENTER YOUR CHOICE : ";
     cin >> choice;
 
@@ -385,6 +427,9 @@ void Supplier_Choice()
             Supplier_Item_Storage();
             break;
         case '3':
+            Remove_Item_From_Storage();
+            break;
+        case '4':
             execute();
             break;
         default:
@@ -527,6 +572,58 @@ void Supplier_Item_Storage()
     system("pause");
     Supplier_Choice();
 }
+//-------------------------
+// REMOVE ITEM FROM STORAGE
+//-------------------------
+
+void Remove_Item_From_Storage() 
+{
+    system("cls");
+    cout << "\t\t==========================" << endl;
+    cout << "\t\t   REMOVE ITEM FROM STORAGE" << endl;
+    cout << "\t\t==========================\n\n" << endl;
+
+      if (Supplier_items.find(current_supplier_username) != Supplier_items.end()) 
+    {
+        int count = 1;
+        for (auto& item : Supplier_items[current_supplier_username]) 
+        {
+            cout << setw(10) << left << count << setw(20) << left << item.Supplier_item_Name
+                 << setw(15) << left << item.Supplier_item_Quantity 
+                 << fixed << setprecision(2) <<"$ "<< item.Supplier_item_Price << endl;
+            count++;
+        }
+    } 
+    else 
+    {
+        cout << "NO ITEMS PURCHASED YET ." << endl << endl;
+        system("pause");
+        Supplier_Choice();
+    }
+
+    int itemNumber;
+    cout << "\n\nENTER THE NUMBER OF ITEM YOU WANT TO REMOVE : ";
+    cin >> itemNumber;
+
+    if (itemNumber < 1 || itemNumber > Supplier_items.size()) 
+    {
+        cout << "INVALID NUMBER ! " << endl;
+        system("pause");
+        Supplier_Choice();
+        return;
+    }
+
+    for (auto& supplier : Supplier_items) 
+    {
+        auto& items = supplier.second;
+        items.erase(items.begin() + itemNumber - 1);
+    }
+
+    cout << "ITEM REMOVED SUCESFULLY !" << endl << endl;
+
+    system("pause");
+    Supplier_Choice();
+}
 
 //---------------------------
 //     DISPLAY ITEMS 
@@ -601,6 +698,8 @@ void execute()
 {
     system("cls");
     char choice;
+    string input;
+    bool validInput = false;
     cout << "\t===========================" << endl;
     cout << "\t WELCOME TO THE INVENTORY" << endl;
     cout << "\t===========================\n\n" << endl;
@@ -608,6 +707,23 @@ void execute()
     cout<<" 2) SUPPLIER : "<<endl;
     cout<<" 3) EXIT : "<<endl<<endl;
     cout<<"ENTER A CHOICE : ";
+        while (!validInput) 
+    {
+        cout << "Enter your choice: ";
+        cin >> input;
+        system("cls");
+
+        if (input.length() == 1 && isdigit(input[0])) {
+            choice = input[0];
+            validInput = true;
+        } else {
+            cout<<"Invalid input..."<<endl;
+            system("pause");
+            execute();
+            cin.clear();
+            cin.ignore(); 
+        }
+    }
     
     cin>>choice;
     switch(choice)
@@ -633,7 +749,7 @@ void execute()
 //     MAIN FUNCTION
 //-------------------------
 int main()
-{  
+{   int indexNumber;
     inventory s1;
     s1.execute();
 return 0;
