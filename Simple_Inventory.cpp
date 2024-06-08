@@ -633,7 +633,7 @@ void execute()
 //     MAIN FUNCTION
 //-------------------------
 int main()
-{   int indexNumber;
+{  
     inventory s1;
     s1.execute();
 return 0;
