@@ -11,11 +11,6 @@ struct stock
   int item_Quantity;
   double item_Price;
 };
-struct User_Data 
-{
-    string User_Name;
-    string User_Password;
-};
 struct supplier_products
 {
     string Supplier_item_Name;
@@ -430,7 +425,7 @@ void Supplier_Choice()
             Remove_Item_From_Storage();
             break;
         case '4':
-            execute();
+            Supplier_Menu();
             break;
         default:
             cout << "Invalid Choice !! " << endl;
@@ -560,7 +555,7 @@ void Supplier_Item_Storage()
         for (auto& item : Supplier_items[current_supplier_username]) {
             cout << setw(10) << left << count << setw(20) << left << item.Supplier_item_Name
                  << setw(15) << left << item.Supplier_item_Quantity 
-                 << fixed << setprecision(2) <<"$ "<< item.Supplier_item_Price << endl;
+                 << fixed << setprecision(2) <<"$ "<< item.Supplier_item_Price << endl << endl;
             count++;
         }
     } 
@@ -612,13 +607,9 @@ void Remove_Item_From_Storage()
         Supplier_Choice();
         return;
     }
-
-    for (auto& supplier : Supplier_items) 
-    {
-        auto& items = supplier.second;
-        items.erase(items.begin() + itemNumber - 1);
-    }
-
+    
+    auto it = Supplier_items.find(current_supplier_username);
+    it -> second.erase(it -> second.begin() + itemNumber - 1);
     cout << "ITEM REMOVED SUCESFULLY !" << endl << endl;
 
     system("pause");
@@ -706,10 +697,9 @@ void execute()
     cout<<" 1) ADMIN : "<<endl;
     cout<<" 2) SUPPLIER : "<<endl;
     cout<<" 3) EXIT : "<<endl<<endl;
-    cout<<"ENTER A CHOICE : ";
         while (!validInput) 
-    {
-        cout << "Enter your choice: ";
+    {   
+        cout<<"ENTER A CHOICE : ";
         cin >> input;
         system("cls");
 
@@ -724,8 +714,6 @@ void execute()
             cin.ignore(); 
         }
     }
-    
-    cin>>choice;
     switch(choice)
     {
         case '1':
