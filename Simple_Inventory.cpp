@@ -102,7 +102,7 @@ void Admin_Menu()
     char choice;
     cout << "\t\t================" << endl;
     cout << "\t\t  WELCOME BACK" << endl;
-    cout << "\t\t================\n\n" << endl;
+    cout << "\t\t================ \n\n " << endl;
     cout<<" 1) VIEW STOCK : "<<endl;
     cout<<" 2) CHANGE AN EXISTING STOCK : "<<endl;
     cout<<" 3) ADD A NEW STOCK : "<<endl;
@@ -152,7 +152,7 @@ void Existing_Stock_Change()
          for (size_t i = 0; i < product.size(); i++)
         {
             cout<< setw(10) << left << i + 1 << setw(20) << left << product[i].item_Name
-            << setw(15) << left << product[i].item_Quantity << fixed << setprecision(2)  << "$ "<< product[i].item_Price<<endl;
+            << setw(15) << left << product[i]<< setw(15) << left << product[i].item_Quantity << fixed << setprecision(2)  << "$ "<< product[i].item_Price<<endl;
         }
     int stockitem;
     cout<<endl;
@@ -466,60 +466,88 @@ void Supplier_Purchasing_Products()
 
     switch (choice) 
     {
-        case '1':
-            Num_To_Buy = 1;
-            cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
-            cin >> itemNumber;
-            if (itemNumber < 1 || itemNumber > product.size()) 
-            {
-                cout << "INVALID ITEM NUMBER !! \n\n" << endl;
-                system("pause");
-                Supplier_Purchasing_Products();
-                return;
-            }
-            index = itemNumber - 1;
-            if (product[index].item_Quantity >= Num_To_Buy)
-            {
-                supplier_products supplier_item;
-                supplier_item.Supplier_item_Name = product[index].item_Name;
-                supplier_item.Supplier_item_Quantity = Num_To_Buy;
-                supplier_item.Supplier_item_Price = product[index].item_Price;
-                Supplier_items[current_supplier_username].push_back(supplier_item);
-                product[index].item_Quantity -= Num_To_Buy;
-                cout << "\n\nPURCHASE SUCCESSFUL \n!! " << endl;
-            } 
-            else 
-            {
-                cout << "\n\nNOT ENOUGH QUANTITY AVAILABLE\n !! " << endl;
-            }
-            break;
-        case '2': 
-            Num_To_Buy = 5;
-            cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
-            cin >> itemNumber;
-            if (itemNumber < 1 || itemNumber > product.size()) 
-            {
-                cout << "INVALID ITEM NUMBER !! \n\n" << endl;
-                system("pause");
-                Supplier_Purchasing_Products();
-                return;
-            }
-            index = itemNumber - 1;
-            if (product[index].item_Quantity >= Num_To_Buy)
-            {
-                supplier_products supplier_item;
-                supplier_item.Supplier_item_Name = product[index].item_Name;
-                supplier_item.Supplier_item_Quantity = Num_To_Buy;
-                supplier_item.Supplier_item_Price = product[index].item_Price * 5;
-                Supplier_items[current_supplier_username].push_back(supplier_item);
-                product[index].item_Quantity -= Num_To_Buy;
-                cout << "\n\nPURCHASE SUCCESSFUL \n!! " << endl;
-            } 
-            else 
-            {
-                cout << "\n\nNOT ENOUGH QUANTITY AVAILABLE\n !! " << endl;
-            }
-            break;
+          case '1':
+    Num_To_Buy = 1;
+    cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
+    cin >> itemNumber;
+    if (itemNumber < 1 || itemNumber > product.size()) 
+    {
+        cout << "INVALID ITEM NUMBER !! \n\n" << endl;
+        system("pause");
+        Supplier_Purchasing_Products();
+        return;
+    }
+
+    index = itemNumber - 1;
+    
+    if (product[index].item_Quantity >= Num_To_Buy)
+    {
+        string itemName = product[index].item_Name;
+        auto& Supplier_Storage = Supplier_items[current_supplier_username];
+
+        auto found = find_if(Supplier_Storage.begin(), Supplier_Storage.end(), 
+                             [&](const supplier_products& item) { return item.Supplier_item_Name == itemName; });
+
+        if (found != Supplier_Storage.end())
+        {
+            found->Supplier_item_Quantity += Num_To_Buy;
+            found->Supplier_item_Price += product[index].item_Price;
+        }
+        else
+        {
+            supplier_products tmp;
+            tmp.Supplier_item_Name = itemName;
+            tmp.Supplier_item_Quantity = Num_To_Buy;
+            tmp.Supplier_item_Price = product[index].item_Price;
+
+            Supplier_Storage.push_back(tmp);
+        }
+
+        product[index].item_Quantity -= Num_To_Buy;
+        cout << "\n\nPURCHASE SUCCESSFUL!!\n" << endl;
+        break;
+    } 
+       case '2': 
+  Num_To_Buy = 5;
+    cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
+    cin >> itemNumber;
+    if (itemNumber < 1 || itemNumber > product.size()) 
+    {
+        cout << "INVALID ITEM NUMBER !! \n\n" << endl;
+        system("pause");
+        Supplier_Purchasing_Products();
+        return;
+    }
+
+    index = itemNumber - 1;
+    
+    if (product[index].item_Quantity >= Num_To_Buy)
+    {
+        string itemName = product[index].item_Name;
+        auto& Supplier_Storage = Supplier_items[current_supplier_username];
+
+        auto found = find_if(Supplier_Storage.begin(), Supplier_Storage.end(), 
+                             [&](const supplier_products& item) { return item.Supplier_item_Name == itemName; });
+
+        if (found != Supplier_Storage.end())
+        {
+            found->Supplier_item_Quantity += Num_To_Buy;
+            found->Supplier_item_Price += product[index].item_Price;
+        }
+        else
+        {
+            supplier_products tmp;
+            tmp.Supplier_item_Name = itemName;
+            tmp.Supplier_item_Quantity = Num_To_Buy;
+            tmp.Supplier_item_Price = product[index].item_Price * Num_To_Buy;
+
+            Supplier_Storage.push_back(tmp);
+        }
+
+        product[index].item_Quantity -= Num_To_Buy;
+        cout << "\n\nPURCHASE SUCCESSFUL!!\n" << endl;
+        break;
+    } 
         case 'E':
         case 'e':
             Supplier_Choice();
@@ -651,11 +679,11 @@ void Display_Categories()
         cout << "\t\t====================\n\n" << endl;
 
         map<string, vector<stock>> categories;
-        for (auto item : product) 
+        for (auto& item : product) 
         {
             categories[item.item_category].push_back(item);
         }
-        for (auto category: categories)
+        for (auto& category: categories)
         {
             cout << "\t\t=============" << endl;
             cout << "\t\t  " << category.first << endl;
@@ -667,7 +695,7 @@ void Display_Categories()
             cout << endl;
 
             int count = 1;
-            for (auto item : category.second) 
+            for (auto& item : category.second) 
             {
                 cout << setw(10) << left << count << setw(20) << left << item.item_Name
                      << setw(15) << left << item.item_Quantity
@@ -737,7 +765,8 @@ void execute()
 //     MAIN FUNCTION
 //-------------------------
 int main()
-{   int indexNumber;
+{   
+
     inventory s1;
     s1.execute();
 return 0;
