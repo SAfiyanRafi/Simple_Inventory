@@ -559,7 +559,6 @@ void Supplier_Purchasing_Products()
     Supplier_Purchasing_Products();
 }
 
-
 //-------------------------
 // SUPPLIER STORAGE
 //-------------------------
