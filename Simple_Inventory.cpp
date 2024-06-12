@@ -152,7 +152,8 @@ void Existing_Stock_Change()
          for (size_t i = 0; i < product.size(); i++)
         {
             cout<< setw(10) << left << i + 1 << setw(20) << left << product[i].item_Name
-            << setw(15) << left << product[i]<< setw(15) << left << product[i].item_Quantity << fixed << setprecision(2)  << "$ "<< product[i].item_Price<<endl;
+            << setw(15) << left << product[i].item_category<< setw(15) << left << product[i].item_Quantity 
+            << fixed << setprecision(2)  << "$ "<< product[i].item_Price<<endl;
         }
     int stockitem;
     cout<<endl;
