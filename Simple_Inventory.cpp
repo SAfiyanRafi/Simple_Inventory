@@ -507,7 +507,12 @@ void Supplier_Purchasing_Products()
         product[index].item_Quantity -= Num_To_Buy;
         cout << "\n\nPURCHASE SUCCESSFUL!!\n" << endl;
         break;
-    } 
+    }
+    else
+    {
+        cout << "Not Enough Quantity Left !!" << endl;
+        system("pause");
+    }
        case '2': 
   Num_To_Buy = 5;
     cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
@@ -549,6 +554,11 @@ void Supplier_Purchasing_Products()
         cout << "\n\nPURCHASE SUCCESSFUL!!\n" << endl;
         break;
     } 
+    else
+    {
+        cout << "Not Enough Quantity Left !!" << endl;
+        system("pause");
+    }
         case 'E':
         case 'e':
             Supplier_Choice();
