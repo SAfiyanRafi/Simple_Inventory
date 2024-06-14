@@ -467,7 +467,7 @@ void Supplier_Purchasing_Products()
 
     switch (choice) 
     {
-          case '1':
+case '1':
     Num_To_Buy = 1;
     cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
     cin >> itemNumber;
@@ -486,8 +486,13 @@ void Supplier_Purchasing_Products()
         string itemName = product[index].item_Name;
         auto& Supplier_Storage = Supplier_items[current_supplier_username];
 
-        auto found = find_if(Supplier_Storage.begin(), Supplier_Storage.end(), 
-                             [&](const supplier_products& item) { return item.Supplier_item_Name == itemName; });
+        auto found = Supplier_Storage.end();
+        for (auto it = Supplier_Storage.begin(); it != Supplier_Storage.end(); ++it) {
+            if (it->Supplier_item_Name == itemName) {
+                found = it;
+                break;
+            }
+        }
 
         if (found != Supplier_Storage.end())
         {
@@ -513,8 +518,9 @@ void Supplier_Purchasing_Products()
         cout << "Not Enough Quantity Left !!" << endl;
         system("pause");
     }
+
        case '2': 
-  Num_To_Buy = 5;
+    Num_To_Buy = 5;
     cout << "ENTER THE NUMBER OF ITEM TO BE BOUGHT : ";
     cin >> itemNumber;
     if (itemNumber < 1 || itemNumber > product.size()) 
@@ -532,20 +538,25 @@ void Supplier_Purchasing_Products()
         string itemName = product[index].item_Name;
         auto& Supplier_Storage = Supplier_items[current_supplier_username];
 
-        auto found = find_if(Supplier_Storage.begin(), Supplier_Storage.end(), 
-                             [&](const supplier_products& item) { return item.Supplier_item_Name == itemName; });
+        auto found = Supplier_Storage.end();
+        for (auto it = Supplier_Storage.begin(); it != Supplier_Storage.end(); ++it) {
+            if (it->Supplier_item_Name == itemName) {
+                found = it;
+                break;
+            }
+        }
 
         if (found != Supplier_Storage.end())
         {
             found->Supplier_item_Quantity += Num_To_Buy;
-            found->Supplier_item_Price += product[index].item_Price;
+            found->Supplier_item_Price += product[index].item_Price * Num_To_Buy;
         }
         else
         {
             supplier_products tmp;
             tmp.Supplier_item_Name = itemName;
             tmp.Supplier_item_Quantity = Num_To_Buy;
-            tmp.Supplier_item_Price = product[index].item_Price * Num_To_Buy;
+            tmp.Supplier_item_Price = product[index].item_Price;
 
             Supplier_Storage.push_back(tmp);
         }
@@ -553,7 +564,7 @@ void Supplier_Purchasing_Products()
         product[index].item_Quantity -= Num_To_Buy;
         cout << "\n\nPURCHASE SUCCESSFUL!!\n" << endl;
         break;
-    } 
+    }
     else
     {
         cout << "Not Enough Quantity Left !!" << endl;
