@@ -36,9 +36,9 @@ class inventory
     //         ITEMS
     //-------------------------
 vector <stock> product = {{"Beans","Vegetable",10,12.76},{"Bananas","Fruit",100,15.3},
-                          {"Potato","Vegetable",70,20.9},{"Mangoes","Fruit",90,25.1}
-                          ,{"Tomato","Vegetable",30,14},{"Strawberry","Fruit",85,17.9}
-                          ,{"Shampoo","Cosmetics",90,25.1},{"Lotion","Cosmetics",30,14},
+                          {"Potato","Vegetable",70,20.9},{"Mangoes","Fruit",90,25.1},
+                          {"Tomato","Vegetable",30,14},{"Strawberry","Fruit",85,17.9},
+                          {"Shampoo","Cosmetics",90,25.1},{"Lotion","Cosmetics",30,14},
                           {"Hair Oil","Cosmetics",85,17.9}};
     //-------------------------
     //    SUPPLIER ITEMS
