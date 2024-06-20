@@ -387,7 +387,7 @@ void supplier_Authorization()
 }
 
 //---------------------------
-//   SUPPLIER PURCHASING 
+//   SUPPLIER CHOICE
 //---------------------------
 void Supplier_Choice() 
 {
