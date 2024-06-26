@@ -487,8 +487,10 @@ case '1':
         auto& Supplier_Storage = Supplier_items[current_supplier_username];
 
         auto found = Supplier_Storage.end();
-        for (auto it = Supplier_Storage.begin(); it != Supplier_Storage.end(); ++it) {
-            if (it->Supplier_item_Name == itemName) {
+        for (auto it = Supplier_Storage.begin(); it != Supplier_Storage.end(); ++it) 
+        {
+            if (it->Supplier_item_Name == itemName) 
+            {
                 found = it;
                 break;
             }
