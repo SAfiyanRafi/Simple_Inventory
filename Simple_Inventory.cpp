@@ -484,7 +484,7 @@ case '1':
     if (product[index].item_Quantity >= Num_To_Buy)
     {
         string itemName = product[index].item_Name;
-        auto& Supplier_Storage = Supplier_items[current_supplier_username];
+        auto& Supplier_Storage = Supplier_items[current_supplier_username]; 
 
         auto found = Supplier_Storage.end();
         for (auto it = Supplier_Storage.begin(); it != Supplier_Storage.end(); ++it) 
