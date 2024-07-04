@@ -605,7 +605,8 @@ void Supplier_Item_Storage()
     if (Supplier_items.find(current_supplier_username) != Supplier_items.end()) 
     {
         int count = 1;
-        for (auto& item : Supplier_items[current_supplier_username]) {
+        for (auto& item : Supplier_items[current_supplier_username]) 
+        {
             cout << setw(10) << left << count << setw(20) << left << item.Supplier_item_Name
                  << setw(15) << left << item.Supplier_item_Quantity 
                  << fixed << setprecision(2) <<"$ "<< item.Supplier_item_Price << endl << endl;
@@ -791,7 +792,6 @@ void execute()
 //-------------------------
 int main()
 {   
-
     inventory s1;
     s1.execute();
 return 0;
