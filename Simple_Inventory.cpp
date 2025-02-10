@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
-#include <algorithm>
+// #include <algorithm>
 #include <map>
 using namespace std;
 struct stock
@@ -49,7 +49,8 @@ vector <stock> product = {{"Beans","Vegetable",10,12.76},{"Bananas","Fruit",100,
     //-------------------------
     //      ADMIN LOGIN
     //-------------------------
-   void Admin_Authorization() {
+   void Admin_Authorization() 
+   {
         system("cls");
         string Admin_Username; 
         string Admin_password;
